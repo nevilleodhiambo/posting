@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
+use App\Models\Job;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -22,4 +25,9 @@ class WebsiteController extends Controller
     public function portofolio(){
         return view('login/portofolio');
     }
+ public function applicants(){
+    $jobs = Job::with('application.seeker')->where('emp_id', auth()->user()->id)->get();
+
+    return view('applicants.index', compact('jobs'));
+ }
 }

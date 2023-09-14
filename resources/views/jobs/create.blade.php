@@ -6,6 +6,12 @@
     
 <form method="post" action="{{route('jobs.store')}}">
     @csrf
+
+   {{-- <div class="d-flex justify-content-end">
+      <a href="{{route('jobs.show', $jobs->id)}}" class="btn btn-success">Go To Jobs</a>
+   </div> --}}
+    <input type="hidden" name="emp_id" value="{{ $emp_id }}">
+
     <div class="form-group col-md-6">
       <label for="exampleInputEmail1">Job Title</label>
       <input type="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Job Title" name="title">

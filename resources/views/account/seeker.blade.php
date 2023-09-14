@@ -1,6 +1,32 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Jobs Hub</title>
+
+  <!-- slider stylesheet -->
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +58,69 @@
   </style>
   <title>Layout Example</title>
 </head>
-<body>
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+          <a class="navbar-brand" href="{{route('index')}}">
+            <span>
+              Jobs Hub
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex flex-column flex-lg-row">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{route('index')}}">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('about')}}"> About </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('do')}}"> What we do </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('portofolio')}}"> Portfolio </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('contact')}}">Contact us</a>
+                </li>
+                <div class="d-flex justify-content-end">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('seeklogin')}}">Login</a>
+                          </li>
+        
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{route('choose')}}">Register</a>
+                          </li>
+        
+                      </ul>
+                </div>
+
+              </ul>
+             
+              <div class="user_option">
+                <a href="">
+                  <img src="/images/user.png" alt="">
+                </a>
+                <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
   <div class="container mt-5">
     <div class="background-div">
       <div class="left-content">
@@ -41,134 +129,66 @@
       </div>
       <div class="right-content">
         <div class="form-container">
-          <h1>Step 1 of 1</h1>
-         
+          <h1>Creating Account As Job Applicant</h1>
+{{--          
+          @if ($errors->any())
+              @foreach ($errors->all() as $error)
+                  <li>{{$error}}</li>
+              @endforeach
+          @endif --}}
           <form method="POST" action="{{route('store')}}">
             @csrf
             <div class="row">
               <div class="col mb-3">
-                <label class="sr-only">First Name</label>
-                <input type="text" class="form-control" placeholder="First name" name="fname">
+                <label class="sr-only">First Name <span style="color: red">*</span></label>
+                <input type="text" class="form-control" placeholder="First name" name="fname"><br>
+                <span style="color: red">@error('fname'){{$message}}@enderror</span>
               </div>
               <div class="col">
                 <label class="sr-only" for="lname">Last Name</label>
-                <input type="text" class="form-control" placeholder="Last name" name="lname">
+                <input type="text" class="form-control" placeholder="Last name" name="lname"><br>
+                <span style="color: red">@error('lname'){{$message}}@enderror</span>
               </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
                 <label class="sr-only" for="email">Email Address</label>
-                  <input type="email" class="form-control" placeholder="example@gmail.com" name="email">
+                  <input type="email" class="form-control" placeholder="example@gmail.com" name="email"><br>
+                  <span style="color: red">@error('email'){{$message}}@enderror</span>
                 </div>
                 <div class="col">
                 <label class="sr-only" for="email">Password</label>
-                  <input type="password" class="form-control" name="password" placeholder="password">
+                  <input type="password" class="form-control" name="password" placeholder="password"><br>
+                  <span style="color: red">@error('password'){{$message}}@enderror</span>
                 </div>
             </div>
 
             <div class="row">
-                <div class="form-group col-md-4">
-                    <label for="inputState">Day</label>
-                    <select id="inputState" class="form-control" name="day">
-                      <option value="1" selected>1</option>
-                      <option value="2">2</option>
-                      <option value="2">3</option>
-                      <option value="2">4</option>
-                      <option value="2">5</option>
-                      <option value="2">6</option>
-                      <option value="2">7</option>
-                      <option value="2">8</option>
-                      <option value="2">9</option>
-                      <option value="2">10</option>
-                      <option value="2">11</option>
-                      <option value="2">12</option>
-                      <option value="2">13</option>
-                      <option value="2">14</option>
-                      <option value="2">15</option>
-                      <option value="2">16</option>
-                      <option value="2">17</option>
-                      <option value="2">18</option>
-                      <option value="2">19</option>
-                      <option value="2">20</option>
-                      <option value="2">21</option>
-                      <option value="2">22</option>
-                      <option value="2">23</option>
-                      <option value="2">24</option>
-                      <option value="2">25</option>
-                      <option value="2">26</option>
-                      <option value="2">27</option>
-                      <option value="2">28</option>
-                      <option value="2">29</option>
-                      <option value="2">30</option>
-                      <option value="2">31</option>
-                    </select>
-                  </div>
+                
+              {{-- <div class="col mb-1">
+                <label class="sr-only" for="email">Date of Birth</label>
+                  <input type="date" class="form-control" name="date"><br>
+                  <span style="color: red">@error('date'){{$message}}@enderror</span>
+                </div> --}}
+                
+                <div class="form-group col-md-6">
+                  <label for="inputState">Gender</label>
+                  <select id="inputState" class="form-control" name="gender">
+                    <option selected>Male</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
 
-                  <div class="form-group col-md-4">
-                    <label for="inputState">Month</label>
-                    <select id="inputState" class="form-control" name="month">
-                      <option value="january" selected>January</option>
-                      <option value="february">February</option>
-                      <option value="march">March</option>
-                      <option value="april">April</option>
-                      <option value="may">May</option>
-                      <option value="june">June</option>
-                      <option value="july">July</option>
-                      <option value="august">August</option>
-                      <option value="september">September</option>
-                      <option value="october">October</option>
-                      <option value="november">November</option>
-                      <option value="december">December</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-md-4">
-                    <label for="inputState">Year</label>
-                    <select id="inputState" class="form-control" name="year">
-                      <option value="2010" selected>2010</option>
-                      <option value="2009">2009</option>
-                      <option value="2008">2008</option>
-                      <option value="2007">2007</option>
-                      <option value="2006">2006</option>
-                      <option value="2005">2005</option>
-                      <option value="2004">2004</option>
-                      <option value="2003">2003</option>
-                      <option value="2002">2002</option>
-                      <option value="2001">2001</option>
-                      <option value="2000">2000</option>
-                      <option value="1999">1999</option>
-                      <option value="1998">1998</option>
-                      <option value="1997">1997</option>
-                      <option value="1996">1996</option>
-                      <option value="1995">1995</option>
-                      <option value="1994">1994</option>
-                      <option value="1993">1993</option>
-                      <option value="1992">1992</option>
-                      <option value="1991">1991</option>
-                      <option value="1989">1989</option>
-                      <option value="1988">1988</option>
-                      <option value="1987">1987</option>
-                      <option value="1986">1986</option>
-                      <option value="1985">1985</option>
-
-                    </select>
-                  </div>
             </div>
 
           
 
             <div class="row">
 
-              <div class="form-group col-md-4">
-                <label for="inputState">Gender</label>
-                <select id="inputState" class="form-control" name="gender">
-                  <option selected>Male</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
+             
 
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                   <label for="inputState">Nationality</label>
                   <select id="inputState" class="form-control" name="nationality">
                     <option selected value="kenyan">Kenyan</option>
@@ -176,7 +196,7 @@
                   </select>
                 </div>
 
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-6">
                     <label for="inputState">Location</label>
                     <select id="inputState" class="form-control" name="location">
                       <option selected value="kisumu">Kisumu</option>
@@ -196,7 +216,8 @@
             <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="sr-only" for="inlineFormInput">Mobile Number</label>
-                    <input type="text" class="form-control" id="inlineFormInput" placeholder="E.g 0712345678" name="number">
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="E.g 0712345678" name="number"><br>
+                    <span style="color: red">@error('number'){{$message}}@enderror</span>
                   </div>
             </div>
 

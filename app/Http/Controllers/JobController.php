@@ -12,8 +12,15 @@ class JobController extends Controller
      */
     public function index()
     {
+        // $emp_id = auth()->user()->employer_id;
         $jobs = Job::all();
         return view('jobs/index', compact('jobs'));
+
+    }
+    public function listing(){
+        $jobListings = Job::where('approved', 1)->latest()->paginate(10);
+
+        return view('job-listings.index', compact('jobListings'));
     }
 
     /**
@@ -21,7 +28,8 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('jobs/create');
+        $emp_id = auth()->user()->employer_id;
+        return view('jobs/create', compact('emp_id'));
     }
 
     /**
@@ -36,16 +44,30 @@ class JobController extends Controller
         $job->coinfo = $request->coinfo;
         $job->qualification = $request->qualification;
         $job->salary = $request->salary;
+        $job->emp_id = $request->emp_id;
+        // return $request->all();
         $job->save();
-        return redirect()->route('jobs.index');
+        return redirect()->route('jobs.show', compact('job'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Job $job)
+    public function show(Job $jobs)
     {
-        //
+        $employer_id = auth()->user()->employer_id;
+        $jobs = Job::where('emp_id', $employer_id)->get();
+        // return $jobs;
+        
+        // $jobs = Job::where('emp_id', $emp_id)->first();
+        // if($employer_id === $jobs->emp_id){
+
+            // dd($jobs->emp_id);
+            return view('jobs/show', compact('jobs', 'employer_id'));
+            //   }else{
+               
+                // abort(403);
+            // }
     }
 
     /**

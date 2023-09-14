@@ -6,13 +6,18 @@ use App\Models\Employer;
 use App\Models\Personal;
 use App\Models\qualification;
 use App\Models\seeker;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
     public function employer(){
-        return view('account/employer');
+        $roles = Role::all();
+        return view('account/employer', compact('roles'));
     }
     public function company(){
         return view('account/company');
@@ -27,79 +32,100 @@ class RegisterController extends Controller
     }
 
     public function store(Request $request){
-        // $request->validate([
-        //     'fname' => 'required|string|max:255',
-        //     'lname' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:personal,email',
-        //     'password' => 'required|string|min:8',
-        //     'day' =>  'required',
-        //     'month' => 'required',
-        //     'year' => 'required',
-        //     'gender' => 'required',
-        //     'nationality' => 'required',
-        //     'location' => 'required',
-        //     'number' => 'required|min:10',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'fname' => 'required|min: 3| max:10',
+            'lname' => 'required|min :3| max:10',
+            'email' => 'required|email|unique:seekers',
+            'location' => 'required|',
+            'password' => 'required|min:8',
+            'number' => 'required|min:10',
+            // 'date' =>  'required',
+            'gender' => 'required',
+            'nationality' => 'required',
+            'qualification' => 'required',
+            'job' => 'required',
+            'availability' => 'required',
+            'experience' => 'required',
+        ]);
 
-        // $personal = Personal::create([
-        //     'fname' =>  $request->fname,
-        //     'lname' => $request->lname,
-        //     'email' => $request->email,
-        //     'day' => $request->day,
-        //     'month' => $request->month,
-        //     'year' => $request->year,
-        //    'gender' => $request->gender,
-        //     'nationality' => $request->nationality,
-        //     'location' => $request->location,
-        //     'number' => $request->number,
-        //     'password' => Hash::make($request->password),
-            
-        // ]);
-        $personal = new Seeker();
-        $personal->fname = $request->fname;
-        $personal->lname = $request->lname;
-        $personal->email = $request->email;
-        $personal->day = $request->day;
-        $personal->month = $request->month;
-        $personal->year = $request->year;
-        $personal->gender = $request->gender;
-        $personal->nationality = $request->nationality;
-        $personal->location = $request->location;
-        $personal->number = $request->number;
-        $personal->password = Hash::make($request->password);
-        $personal->qualification = $request->qualification;
-        $personal->job = $request->job;
-        $personal->availability = $request->availability;
-        $personal->experience = $request->experience;
-        $personal->save();
-        return redirect()->back();
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $seeker = seeker::create([
+            'fname' => $request->input('fname'),
+            'lname' => $request->input('lname'),
+            'email' => $request->input('email'),
+            'location' => $request->input('location'),
+            'number' => $request->input('number'),
+            // 'date' => $request->input('date'),
+            'password' => bcrypt($request->input('password')),
+            'gender' => $request->input('gender'),
+            'nationality' => $request->input('nationality'),
+            'qualification' => $request->input('qualification'),
+            'job' => $request->input('job'),
+            'availability' => $request->input('availability'),
+            'experience' => $request->input('experience'),
+        ]);
+        $user = new User();
+        $user->seeker_id = $seeker->id;
+        $user->email = $seeker->email;
+        $user->name = $seeker->fname.' '.$seeker->lname;
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+        $user->assignRole('Seeker');
+        Auth::login($user);
+        return redirect()->route('alljobs')->with('success', 'Data Stored Successfully');
+        
     }
-    // public function storequalification(Request $request){
-    //     $qualification = new qualification();
-           
-    //     $qualification->save();
-    //     return to_route('index');
-    // }
-    // public function stremployer(){
-    //         return view('')
-    // }
+ 
     public function stremployer(Request $request){
-        $employer = new Employer();
-        // return $request->all();
-        $employer->fname = $request->fname;
-        $employer->lname = $request->lname;
-        $employer->email = $request->email;
-        $employer->position = $request->position;
-        $employer->phone = $request->phone;
-        $employer->cname = $request->cname;
-        $employer->industry = $request->industry;
-        $employer->employeescount = $request->employeescount;
-        $employer->hear = $request->hear;
-        $employer->contact = $request->contact;
-        $employer->wemail = $request->wemail;
-        $employer->website = $request->website;
-        $employer->password = Hash::make($request->fname);
-        $employer->save();
-        return redirect()->back();
+
+        $validator = Validator::make($request->all(), [
+            'fname' => 'required|min: 3',
+            'lname' => 'required|min: 3',
+            'email' => 'required|email|unique:employers',
+            'position' => 'required',
+            'phone' => 'required|min:10|unique:employers',
+            'cname' => 'required|unique:employers',
+            'industry' => 'required',
+            'employeescount' => 'required',
+            'hear' => 'required',
+            'contact' => 'required|min:10|unique:employers',
+            'wemail' => 'required|email|unique:employers',
+            // 'website' => 'required',
+            'password' => 'required|min:8'
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $employer = Employer::create([
+            'fname' => $request->input('fname'),
+            'lname' => $request->input('lname'),
+            'email' => $request->input('email'),
+            'position' => $request->input('position'),
+            'phone' => $request->input('phone'),
+            'cname' => $request->input('cname'),
+            'industry' => $request->input('industry'),
+            'employeescount' => $request->input('employeescount'),
+            'hear' => $request->input('hear'),
+            'contact' => $request->input('contact'),
+            'wemail' => $request->input('wemail'),
+            // 'website' => $request->input('website'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        $user = new User();
+        $user->name = $employer->fname.' '.$employer->lname;
+        $user->employer_id = $employer->id;
+        $user->email = $employer->email;
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+        $user->assignRole('Employer');
+        Auth::login($user);
+        return redirect()->route('alljobs')->with('success', 'Successfully Created');
+    }
+    public function display(){
+        $seekers = seeker::all();
+        return view('account/seekerindex', compact('seekers'));
     }
 }

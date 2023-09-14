@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Employer extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
     protected $fillable  = [
         'fname',
         'lname',
@@ -20,6 +21,11 @@ class Employer extends Model
         'employeescount',
         'hear',
         'contact',
-        'wemail'
+        'wemail',
+        'status'
+
     ];
+    public function job(){
+        return $this->hasMany(Job::class);
+    }
 }

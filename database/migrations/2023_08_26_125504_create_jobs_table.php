@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('skills');
             $table->string('coinfo');
             $table->integer('salary');
+            $table->boolean('approved')->default(0);
+            $table->integer('emp_id');
             $table->timestamps();
         });
     }

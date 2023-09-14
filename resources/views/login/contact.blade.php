@@ -45,24 +45,38 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+            <div class="d-flex flex-column flex-lg-row">
               <ul class="navbar-nav  ">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{route('index')}}">Home <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{route('about')}}"> About </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{route('do')}}"> What we do </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{route('portofolio')}}"> Portfolio </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{route('contact')}}">Contact us</a>
-                  </li>
+                  <a class="nav-link" href="{{route('index')}}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('about')}}"> About </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('do')}}"> What we do </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('portofolio')}}"> Portfolio </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('contact')}}">Contact us</a>
+                </li>
+                <div class="d-flex justify-content-end">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('seeklogin')}}">Login</a>
+                          </li>
+        
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{route('choose')}}">Register</a>
+                          </li>
+        
+                      </ul>
+                </div>
+
               </ul>
+             
               <div class="user_option">
                 <a href="">
                   <img src="/images/user.png" alt="">

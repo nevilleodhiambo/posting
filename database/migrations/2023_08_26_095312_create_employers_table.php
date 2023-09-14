@@ -20,12 +20,13 @@ return new class extends Migration
             $table->string('position');
             $table->string('phone')->unique();
             $table->string('cname');
+            $table->boolean('status')->default(0); //0 : disabled, 1 : enabled
             $table->string('industry');
             $table->string('employeescount');
             $table->string('hear');
             $table->string('contact')->unique();
             $table->string('wemail');
-            $table->string('website');
+            // $table->string('website');
             $table->timestamps();
         });
     }

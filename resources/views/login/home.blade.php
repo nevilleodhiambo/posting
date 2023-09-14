@@ -12,7 +12,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Esigned</title>
+  <title>Jobs Hub</title>
 
   <!-- slider stylesheet -->
   <!-- slider stylesheet -->
@@ -35,9 +35,9 @@
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="{{route('index')}}">
             <span>
-              Esigned
+              Jobs Hub
             </span>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
                 <div class="d-flex justify-content-end">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('loginchoose')}}">Login</a>
+                            <a class="nav-link" href="{{route('seeklogin')}}">Login</a>
                           </li>
         
                           <li class="nav-item">
@@ -111,14 +111,14 @@
 
                       </h2>
                       <h1>
-                        web agency
+                       Jobs Hub agency
                       </h1>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
+                       In Jobs Hub Agency, We connect Employers to their Esteemed Job Seekers and also Job Applicants
+                       to Their Destined Employers
                       </p>
                       <div class="">
-                        <a href="">
+                        <a href="{{route('contact')}}">
                           Contact us
                         </a>
                       </div>
@@ -133,18 +133,17 @@
                   <div class="detail-box">
                     <div>
                       <h2>
-                        welcome to
+                        Need More
 
                       </h2>
                       <h1>
-                        web agency
+                        Reach Out To Us
                       </h1>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
+                        For Questions and clarifications You Can Reach Out To us at any time. Click on Contact below to reach to us.
                       </p>
                       <div class="">
-                        <a href="">
+                        <a href="{{route('contact')}}">
                           Contact us
                         </a>
                       </div>
